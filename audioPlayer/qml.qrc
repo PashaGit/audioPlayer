@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qmlModules/MouseForWindow.qml</file>
+        <file>resources/close.png</file>
+        <file>qmlModules/HeaderWithTitle.qml</file>
+        <file>qmlModules/StatusBar.qml</file>
+        <file>qmlModules/OpenFolder.qml</file>
+        <file>resources/openFolder.png</file>
+        <file>resources/folderIcon.png</file>
+        <file>qmlDelegate/DelegateForListView.qml</file>
+        <file>qmlModules/ButtonForPlay.qml</file>
+        <file>resources/false.png</file>
+        <file>qmlMask/Mask.qml</file>
+        <file>resources/play.png</file>
+        <file>resources/stop.png</file>
+    </qresource>
+</RCC>
