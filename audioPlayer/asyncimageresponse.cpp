@@ -4,23 +4,23 @@ asyncImageResponse::asyncImageResponse(const QString &id, const QSize &requested
   : mId(id), mImage(QImage("Null")){
   setAutoDelete(false);
   player=new QMediaPlayer(this);
+  dataManagementListView::getInstance()->deleteServiceNumbers(mId);
 }
 
 QQuickTextureFactory* asyncImageResponse::textureFactory() const{
-  QQuickTextureFactory::textureFactoryForImage(mImage);
+  return QQuickTextureFactory::textureFactoryForImage(mImage);
 }
 
 void asyncImageResponse::run(){
   //check QImage in Qlist
   if(mId=="error"){
-      emit finished();
+    // emit finished();
       return;
     }
   int index=mId.toInt();
   if(!dataManagementListView::getInstance()->checkIndex(index)){
       mImage=dataManagementListView::getInstance()->getImageFolder();
       emit finished();
-      return;
     } else {
       //best use another library for the operation, but I want to use only qt at the moment.
       QEventLoop eventLoop;

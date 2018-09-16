@@ -10,7 +10,7 @@ dataManagementListView* dataManagementListView::getInstance(){
 }
 
 dataManagementListView::dataManagementListView(QObject *parent)
-  : mPlayer(nullptr), mPlayList(nullptr), filters(""), mImageFolder("://resources/folderIcon.png"){
+  : mPlayer(nullptr), mPlayList(nullptr), filters(""),mImageFolder("://resources/folderIcon.png"){
   mPlayer= new QMediaPlayer(this);
   mPlayList = new QMediaPlaylist(mPlayer);
   mPlayer->setPlaylist(mPlayList);
@@ -67,6 +67,7 @@ bool dataManagementListView::setUrl(QString url){
   //here is mistake when you delete the file:///
   for(int i=0; i<mListFiles.size(); ++i)mPlayList->addMedia(QUrl("file:///"+mListFiles.at(i).filePath()));
   getMetaDataAndType(mListFiles);
+
   return true;
 }
 
@@ -90,6 +91,7 @@ void dataManagementListView::getMetaDataAndType(QFileInfoList &listFiles){
   endResetModel();
   mPlayList->setCurrentIndex(0);
   emit endLoadData();
+  emit reloadImage();
 }
 
 void dataManagementListView::clearMetaDataAndType(){
@@ -121,6 +123,8 @@ QImage dataManagementListView::getImageFolder(){
   return mImageFolder;
 }
 
+
+
 bool dataManagementListView::checkIndex(int index){
   if(index<mListFolder.count())return false;
   else return true;
@@ -141,4 +145,8 @@ void dataManagementListView::playListIndexChanged(int index){
 void dataManagementListView::setIndexPlayList(int index){
   int indexReal=index-mListFolder.count();
   if(indexReal>=0)mPlayList->setCurrentIndex(indexReal);
+}
+
+void dataManagementListView::deleteServiceNumbers(QString &data){
+  if(data.indexOf(";")>0)data.remove(data.indexOf(";"), data.size()-1);
 }

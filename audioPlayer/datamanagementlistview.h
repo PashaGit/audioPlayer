@@ -66,6 +66,7 @@ public:
   void setDuration(int index, float duration);
   bool checkIndex(int index);
   QImage getImageFolder();
+  void deleteServiceNumbers(QString& data);
 
 private slots:
   void playListIndexChanged(int index);
@@ -80,6 +81,7 @@ public slots:
 signals:
   void endLoadData();
   void changedCurrentIndex(int indexPl);
+  void reloadImage();
 };
 
 #endif // DATAMANAGEMENTLISTVIEW_H

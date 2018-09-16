@@ -10,14 +10,19 @@ Item{
             id:mainRecDelegeate;
             function getImage(){return im.source;}
           //  function getNameComposition(){return nComp.text;}
-            function getDuration(){return durat.text; }
           //  function getFormatFile(){return formFile.text; }
+            function getDuration(){return durat.text; }
+            property string covarAudioWithR: "0";
+            property bool getData: true
 
             Image{
                 id: im;
                 width: 40;
                 height: parent.height/1.5;
-                source: coverAudio;
+                source: {
+                    if(getData){return coverAudio}
+                    else {getData=true; return (coverAudio+";"+covarAudioWithR);}
+                }
                 anchors.top: parent.top;
                 anchors.left: parent.left;
                 anchors.leftMargin: 5;
@@ -56,6 +61,7 @@ Item{
             border.width: 1;
             border.color: "grey"
             Rectangle{
+                id: circle;
                 visible: {if(lv.currentIndex==index)return true; else false;}
                 radius: 50;
                 height: 10;
@@ -70,7 +76,13 @@ Item{
                 anchors.fill: parent
                 onClicked: lv.currentIndex = model.index
             }
-
+            Connections{
+                target: DataManagerLV;
+                onReloadImage : {
+                    covarAudioWithR=Math.random();
+                    getData=false;
+                }
+            }
         }
     }
 }
