@@ -23,12 +23,9 @@ void asyncImageResponse::run(){
       emit finished();
     } else {
       //best use another library for the operation, but I want to use only qt at the moment.
-      QEventLoop eventLoop;
-      QObject::connect(player, SIGNAL(metaDataAvailableChanged(bool)), &eventLoop, SLOT(quit()));
-      QObject::connect(player, SIGNAL(error(QMediaPlayer::Error)), &eventLoop, SLOT(quit()));
       qDebug() << dataManagementListView::getInstance()->getMusic(index);
       player->setMedia(dataManagementListView::getInstance()->getMusic(index));
-      eventLoop.exec();
+      QThread::msleep(200);
       //When data are available;
       if(player->isMetaDataAvailable()){
           dataManagementListView::getInstance()->setDuration(index, player->metaData(QMediaMetaData::Duration).toFloat()); //I need an another plan.
@@ -40,6 +37,5 @@ void asyncImageResponse::run(){
 
 
 asyncImageResponse::~asyncImageResponse(){
-  // qDebug() << "I hereasync" << mIndex;
   delete player;
 }
